@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vortex Shield Unit • HICOM Application</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Suppress Tailwind CDN warning -->
+    <script>
+        (function() {
+            const originalWarn = console.warn;
+            console.warn = function(...args) {
+                if (args[0] && typeof args[0] === 'string' && args[0].includes('cdn.tailwindcss.com')) return;
+                originalWarn.apply(console, args);
+            };
+        })();
+    </script>
+    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Space+Grotesk:wght@500;600&amp;display=swap');
+        
+        body {
+            font-family: 'Inter', system_ui, sans-serif;
+        }
+        
+        .font-display {
+            font-family: 'Space Grotesk', 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        .purple-glow {
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        .input-focus {
+            transition: all 0.2s ease;
+        }
+        
+        .input-focus:focus {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(168, 85, 247, 0.2);
+            border-color: #A855F7;
+        }
+
+        .modern-shadow {
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+        }
+
+        .gaming-bg {
+            background: linear-gradient(135deg, #0F172A 0%, #1E1135 100%);
+        }
+
+        .application-step {
+            animation: fadeInUp 0.4s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .form-label {
+            font-weight: 600;
+            color: #E0E7FF;
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-200 gaming-bg min-h-screen">
+    <!-- Header -->
+    <div class="border-b border-slate-800 bg-slate-900/80 backdrop-blur-lg sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-6 py-5 flex items-center justify-between">
+            <div class="flex items-center gap-x-3">
+                <div class="w-11 h-11 rounded-2xl bg-gradient-to-br from-purple-500 to-violet-600 flex items-center justify-center shadow-lg purple-glow">
+                    <i class="fa-solid fa-shield-halved text-white text-3xl"></i>
+                </div>
+                <div>
+                    <div class="font-display text-2xl font-semibold tracking-tighter">Vortex Shield Unit</div>
+                    <div class="text-xs text-purple-400 -mt-1 tracking-[2px]">SCRIM TEAM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="max-w-4xl mx-auto px-6 pt-10 pb-20">
+        
+        <!-- Hero -->
+        <div class="text-center mb-10">
+            <div class="inline-flex items-center gap-x-2 px-4 py-1.5 bg-purple-950/60 border border-purple-500/30 rounded-3xl mb-4">
+                <i class="fa-solid fa-tachometer-alt text-purple-400"></i>
+                <span class="text-sm font-semibold text-purple-300 tracking-wider">HICOM RECRUITMENT 2026</span>
+            </div>
+            
+            <h1 class="font-display text-5xl md:text-6xl font-semibold tracking-tighter mb-3">
+                Vortex Shield Unit<br>
+                <span class="bg-gradient-to-r from-purple-400 to-violet-400 bg-clip-text text-transparent">HICOM Application</span>
+            </h1>
+            
+            <p class="max-w-md mx-auto text-lg text-slate-400">
+                This is your time to get an HICOM of our scrim team and host events.
+            </p>
+        </div>
+
+        <!-- Progress Bar -->
+        <div id="progress-container" class="max-w-2xl mx-auto mb-8">
+            <div class="flex justify-between text-xs font-medium text-slate-400 mb-2 px-1">
+                <div>STEP <span id="current-step">1</span> / 4</div>
+                <div id="progress-text">Personal Information</div>
+            </div>
+            <div class="h-2 bg-slate-800 rounded-full overflow-hidden">
+                <div id="progress-bar" 
+                     class="h-2 bg-gradient-to-r from-purple-500 to-violet-500 transition-all duration-500 rounded-full"
+                     style="width: 25%"></div>
+            </div>
+        </div>
+
+        <!-- Form -->
+        <div class="max-w-2xl mx-auto" id="form-container">
+            <form id="hicom-form" class="form-card bg-slate-900 border border-slate-700 rounded-3xl p-8 md:p-10 modern-shadow">
+                
+                <!-- STEP 1: Personal Info -->
+                <div id="step-1" class="application-step">
+                    <div class="mb-8">
+                        <div class="flex items-center gap-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                                <i class="fa-solid fa-user text-purple-400"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-semibold tracking-tight">Personal Information</h2>
+                        </div>
+                        <p class="text-slate-400 text-sm">Let's start with the basics.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Discord Username <span class="text-purple-400">*</span></label>
+                            <input type="text" id="discord" name="discord" required
+                                   class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-2xl px-5 py-3.5 text-white placeholder:text-slate-500"
+                                   placeholder="username or @username">
+                        </div>
+
+                        <div>
+                            <label class="form-label block mb-2 text-sm">In-Game Name (IGN) <span class="text-purple-400">*</span></label>
+                            <input type="text" id="ign" name="ign" required
+                                   class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-2xl px-5 py-3.5 text-white placeholder:text-slate-500"
+                                   placeholder="Your IGN + tag">
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="form-label block mb-2 text-sm">Age <span class="text-purple-400">*</span></label>
+                                <input type="number" id="age" name="age" required min="13" max="99"
+                                       class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-2xl px-5 py-3.5 text-white"
+                                       placeholder="18">
+                            </div>
+                            
+                            <div>
+                                <label class="form-label block mb-2 text-sm">Timezone <span class="text-purple-400">*</span></label>
+                                <select id="timezone" name="timezone" required
+                                        class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-2xl px-5 py-3.5 text-white">
+                                    <option value="">Select timezone</option>
+                                    <option value="UTC-8 (PST)">UTC-8 (PST)</option>
+                                    <option value="UTC-7 (MST)">UTC-7 (MST)</option>
+                                    <option value="UTC-6 (CST)">UTC-6 (CST)</option>
+                                    <option value="UTC-5 (EST)">UTC-5 (EST)</option>
+                                    <option value="UTC+0 (GMT)">UTC+0 (GMT)</option>
+                                    <option value="UTC+1 (CET)">UTC+1 (CET)</option>
+                                    <option value="UTC+8 (SGT)">UTC+8 (SGT)</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 2: Experience -->
+                <div id="step-2" class="application-step hidden">
+                    <div class="mb-8">
+                        <div class="flex items-center gap-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                                <i class="fa-solid fa-trophy text-purple-400"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-semibold tracking-tight">Your Experience</h2>
+                        </div>
+                        <p class="text-slate-400 text-sm">Tell us about your background.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="form-label block mb-2 text-sm">How long have you been in the community or playing scrims? <span class="text-purple-400">*</span></label>
+                            <select id="experience_time" name="experience_time" required class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-2xl px-5 py-3.5 text-white">
+                                <option value="">Select duration</option>
+                                <option value="Less than 1 month">Less than 1 month</option>
+                                <option value="1-3 months">1-3 months</option>
+                                <option value="3-6 months">3-6 months</option>
+                                <option value="6-12 months">6-12 months</option>
+                                <option value="1+ year">1+ year</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Have you hosted events before? <span class="text-purple-400">*</span></label>
+                            <div class="space-y-3 mt-2">
+                                <label class="flex items-center gap-x-3 cursor-pointer">
+                                    <input type="radio" name="hosted_before" value="Yes" required class="accent-purple-500 w-5 h-5">
+                                    <span>Yes, I have hosted events</span>
+                                </label>
+                                <label class="flex items-center gap-x-3 cursor-pointer">
+                                    <input type="radio" name="hosted_before" value="No, but I'm eager to learn" required class="accent-purple-500 w-5 h-5">
+                                    <span>No, but I'm eager to learn</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Previous leadership or hosting experience (optional)</label>
+                            <textarea id="leadership_exp" name="leadership_exp" rows="3"
+                                      class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-3xl px-5 py-4 text-white placeholder:text-slate-500"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 3: Motivation -->
+                <div id="step-3" class="application-step hidden">
+                    <div class="mb-8">
+                        <div class="flex items-center gap-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                                <i class="fa-solid fa-lightbulb text-purple-400"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-semibold tracking-tight">Motivation &amp; Ideas</h2>
+                        </div>
+                        <p class="text-slate-400 text-sm">This is the most important part.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Why do you want to become HICOM? <span class="text-purple-400">*</span></label>
+                            <textarea id="why_hicom" name="why_hicom" rows="4" required
+                                      class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-3xl px-5 py-4 text-white placeholder:text-slate-500"
+                                      placeholder="Be honest and detailed..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="form-label block mb-2 text-sm">What ideas do you have to improve the team or events? <span class="text-purple-400">*</span></label>
+                            <textarea id="ideas" name="ideas" rows="4" required
+                                      class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-3xl px-5 py-4 text-white placeholder:text-slate-500"
+                                      placeholder="New formats, better organization, engagement..."></textarea>
+                        </div>
+
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Hours per week you can dedicate <span class="text-purple-400">*</span></label>
+                            <div class="flex items-center gap-x-4">
+                                <input type="range" id="hours" name="hours_per_week" min="5" max="30" step="1" value="15"
+                                       class="flex-1 accent-purple-500">
+                                <div class="w-16 text-center">
+                                    <span id="hours-value" class="font-mono text-xl font-semibold text-purple-400">15</span>
+                                    <span class="text-xs text-slate-400">hrs/week</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STEP 4: Final -->
+                <div id="step-4" class="application-step hidden">
+                    <div class="mb-8">
+                        <div class="flex items-center gap-x-3 mb-2">
+                            <div class="w-8 h-8 rounded-2xl bg-purple-600/20 flex items-center justify-center">
+                                <i class="fa-solid fa-check-double text-purple-400"></i>
+                            </div>
+                            <h2 class="font-display text-3xl font-semibold tracking-tight">Final Details</h2>
+                        </div>
+                        <p class="text-slate-400 text-sm">Last step.</p>
+                    </div>
+
+                    <div class="space-y-6">
+                        <div>
+                            <label class="form-label block mb-2 text-sm">Anything else you want us to know? (optional)</label>
+                            <textarea id="additional" name="additional" rows="3"
+                                      class="input-focus w-full bg-slate-950 border border-slate-700 focus:border-purple-500 rounded-3xl px-5 py-4 text-white placeholder:text-slate-500"></textarea>
+                        </div>
+
+                        <div class="bg-slate-950 border border-slate-700 rounded-3xl p-6">
+                            <label class="flex items-start gap-x-3 cursor-pointer">
+                                <input type="checkbox" id="agree_rules" required class="accent-purple-500 mt-1 w-5 h-5">
+                                <span class="text-sm leading-snug">
+                                    I agree to be active, professional, and follow all team rules if selected as HICOM.
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Buttons -->
+                <div class="flex items-center justify-between pt-8 mt-8 border-t border-slate-700">
+                    <button type="button" id="prev-btn"
+                            class="px-6 py-3 rounded-2xl font-semibold flex items-center gap-x-2 text-slate-300 hover:text-white transition-colors disabled:opacity-40"
+                            onclick="prevStep()">
+                        <i class="fa-solid fa-arrow-left"></i>
+                        <span>Back</span>
+                    </button>
+
+                    <button type="button" id="next-btn"
+                            class="px-8 py-3.5 bg-purple-600 hover:bg-purple-500 active:bg-purple-700 transition-all font-semibold rounded-2xl flex items-center gap-x-2 text-white shadow-lg purple-glow"
+                            onclick="nextStep()">
+                        <span id="next-btn-text">Continue</span>
+                        <i class="fa-solid fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <!-- Thank You Message -->
+        <div id="thank-you" class="hidden max-w-2xl mx-auto text-center py-16">
+            <div class="w-20 h-20 mx-auto mb-6 rounded-full bg-emerald-500/10 flex items-center justify-center">
+                <i class="fa-solid fa-check-circle text-emerald-400 text-7xl"></i>
+            </div>
+            <h2 class="font-display text-4xl font-semibold mb-4">Thank you!</h2>
+            <p class="text-xl text-slate-300 max-w-md mx-auto">
+                Thanks, your application will be reviewed in the next 24 hours.
+            </p>
+            <p class="text-sm text-slate-500 mt-6">You can now close this tab.</p>
+        </div>
+
+    </div>
+
+    <script>
+        // ==================== WEB3FORMS SETUP ====================
+        // 1. Go to https://web3forms.com (free)
+        // 2. Create a free account and copy your Access Key
+        // 3. Paste it below
+        const WEB3FORMS_ACCESS_KEY = "48cf1086-751c-4f50-aede-e9ce4ca5b9f3";
+        const RECIPIENT_EMAIL = "maxreimer074@gmail.com";
+        // ========================================================
+
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function updateProgress() {
+            const progress = (currentStep / totalSteps) * 100;
+            document.getElementById('progress-bar').style.width = `${progress}%`;
+            document.getElementById('current-step').textContent = currentStep;
+
+            const stepNames = ["Personal Information", "Your Experience", "Motivation & Ideas", "Final Details"];
+            document.getElementById('progress-text').textContent = stepNames[currentStep - 1];
+        }
+
+        function showStep(step) {
+            for (let i = 1; i <= totalSteps; i++) {
+                const el = document.getElementById(`step-${i}`);
+                if (el) el.classList.add('hidden');
+            }
+            const currentEl = document.getElementById(`step-${step}`);
+            if (currentEl) currentEl.classList.remove('hidden');
+
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            const nextText = document.getElementById('next-btn-text');
+
+            prevBtn.disabled = (step === 1);
+
+            if (step === totalSteps) {
+                nextText.innerHTML = `Submit Application <i class="fa-solid fa-paper-plane ml-2"></i>`;
+                nextBtn.onclick = submitApplication;
+                nextBtn.classList.add('!bg-emerald-600', 'hover:!bg-emerald-500');
+            } else {
+                nextText.innerHTML = `Continue <i class="fa-solid fa-arrow-right ml-2"></i>`;
+                nextBtn.onclick = nextStep;
+                nextBtn.classList.remove('!bg-emerald-600', 'hover:!bg-emerald-500');
+            }
+            updateProgress();
+        }
+
+        function nextStep() {
+            if (!validateCurrentStep()) return;
+            if (currentStep < totalSteps) {
+                currentStep++;
+                showStep(currentStep);
+            }
+        }
+
+        function prevStep() {
+            if (currentStep > 1) {
+                currentStep--;
+                showStep(currentStep);
+            }
+        }
+
+        function validateCurrentStep() {
+            const stepContainer = document.getElementById(`step-${currentStep}`);
+            if (!stepContainer) return true;
+
+            let isValid = true;
+            const requiredFields = stepContainer.querySelectorAll('[required]');
+
+            requiredFields.forEach(field => {
+                if (!field.value.trim() && field.type !== 'checkbox') {
+                    isValid = false;
+                    field.classList.add('!border-red-500');
+                    setTimeout(() => field.classList.remove('!border-red-500'), 1800);
+                }
+            });
+
+            if (currentStep === 2) {
+                const hosted = document.querySelector('input[name="hosted_before"]:checked');
+                if (!hosted) {
+                    isValid = false;
+                    alert("Please select whether you have hosted events before.");
+                }
+            }
+
+            if (currentStep === 4) {
+                const agree = document.getElementById('agree_rules');
+                if (!agree.checked) {
+                    isValid = false;
+                    agree.classList.add('!border-red-500');
+                    setTimeout(() => agree.classList.remove('!border-red-500'), 1800);
+                }
+            }
+
+            return isValid;
+        }
+
+        function setupHoursSlider() {
+            const slider = document.getElementById('hours');
+            const valueDisplay = document.getElementById('hours-value');
+            if (slider && valueDisplay) {
+                slider.addEventListener('input', () => {
+                    valueDisplay.textContent = slider.value;
+                });
+            }
+        }
+
+        async function submitApplication() {
+            if (!validateCurrentStep()) return;
+
+            const nextBtn = document.getElementById('next-btn');
+            const originalText = nextBtn.innerHTML;
+            nextBtn.innerHTML = `<i class="fa-solid fa-spinner fa-spin mr-2"></i> Submitting...`;
+            nextBtn.disabled = true;
+
+            const formData = new FormData();
+            formData.append("access_key", WEB3FORMS_ACCESS_KEY);
+            formData.append("from_name", "Vortex Shield HICOM Application");
+            formData.append("subject", "New HICOM Application - Vortex Shield Unit");
+            formData.append("to", RECIPIENT_EMAIL);
+
+            formData.append("Discord", document.getElementById('discord').value);
+            formData.append("IGN", document.getElementById('ign').value);
+            formData.append("Age", document.getElementById('age').value);
+            formData.append("Timezone", document.getElementById('timezone').value);
+            formData.append("Experience Time", document.getElementById('experience_time').value);
+            formData.append("Hosted Before", document.querySelector('input[name="hosted_before"]:checked')?.value || '');
+            formData.append("Leadership Experience", document.getElementById('leadership_exp').value);
+            formData.append("Why HICOM", document.getElementById('why_hicom').value);
+            formData.append("Ideas", document.getElementById('ideas').value);
+            formData.append("Hours per Week", document.getElementById('hours').value);
+            formData.append("Additional Info", document.getElementById('additional').value);
+            formData.append("Submitted At", new Date().toLocaleString());
+
+            try {
+                const response = await fetch("https://api.web3forms.com/submit", {
+                    method: "POST",
+                    body: formData
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Show simple thank you message
+                    document.getElementById('form-container').classList.add('hidden');
+                    document.getElementById('progress-container').classList.add('hidden');
+                    document.getElementById('thank-you').classList.remove('hidden');
+                    document.getElementById('thank-you').classList.add('flex', 'flex-col', 'items-center', 'justify-center');
+                } else {
+                    alert("Something went wrong. Please try again.");
+                    nextBtn.innerHTML = originalText;
+                    nextBtn.disabled = false;
+                }
+            } catch (error) {
+                alert("Submission failed. Please check your internet and try again.");
+                nextBtn.innerHTML = originalText;
+                nextBtn.disabled = false;
+            }
+        }
+
+        function initializeForm() {
+            setupHoursSlider();
+            showStep(1);
+
+            // Keyboard support
+            document.addEventListener('keydown', function(e) {
+                if (e.key === "Enter" && document.activeElement.tagName !== "TEXTAREA") {
+                    const nextBtn = document.getElementById('next-btn');
+                    if (nextBtn && !nextBtn.disabled) {
+                        e.preventDefault();
+                        nextBtn.click();
+                    }
+                }
+            });
+
+            if (WEB3FORMS_ACCESS_KEY === "YOUR_WEB3FORMS_ACCESS_KEY_HERE") {
+                console.log("%c[Info] Replace WEB3FORMS_ACCESS_KEY with your real key from web3forms.com so emails are sent automatically.", "color:#64748b");
+            }
+        }
+
+        window.onload = initializeForm;
+    </script>
+</body>
+</html>
